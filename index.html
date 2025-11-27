@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fandom Ranking | Creator Data</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CF21 Fandom Ranking</h1>
+        </header>
+
+        <section id="stats" class="stats-panel">
+            <div class="stat-card">
+                <h3>Total Filtred Fandoms</h3>
+                <p id="total-fandoms">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Creators</h3>
+                <p id="total-creators">-</p>
+            </div>
+        </section>
+
+        <section id="chart-section" class="chart-container">
+            <h2>Top 15 Fandoms</h2>
+            <div class="canvas-container">
+                <canvas id="fandomChart"></canvas>
+            </div>
+        </section>
+
+        <section id="rankings">
+            <div class="rankings-header">
+                <h2>All Rankings</h2>
+                <input type="text" id="search-bar" placeholder="Search fandoms...">
+            </div>
+            <div class="list-header">
+                <span class="rank-col">Rank</span>
+                <span class="name-col">Fandom Name</span>
+                <span class="count-col">Creators</span>
+            </div>
+            <ul id="ranking-list" class="ranking-list">
+                <!-- Items will be populated by JS -->
+                <li class="loading">Loading data...</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>Data sourced from Comifuro 21 Creator List</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
