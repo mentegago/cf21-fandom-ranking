@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CF21 Fandom Ranking</title>
+    <title>CF Fandom Ranking</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>CF21 Fandom Ranking</h1>
-            <p>Data berbasis input dari creator.</p>
+            <h1>Comifuro Fandom Ranking</h1>
         </header>
+
+        <div class="dataset-toggle">
+            <button id="btn-cf22" class="toggle-btn active">CF22</button>
+            <button id="btn-cf21" class="toggle-btn">CF21</button>
+        </div>
 
         <section id="stats" class="stats-panel">
             <div class="stat-card">
@@ -25,19 +28,13 @@
             </div>
         </section>
 
-        <section id="chart-section" class="chart-container">
-            <h2>Top 15 Fandoms</h2>
-            <div class="canvas-container">
-                <canvas id="fandomChart"></canvas>
-            </div>
-        </section>
-
         <section id="rankings">
             <div class="rankings-header">
                 <h2>All Rankings</h2>
                 <input type="text" id="search-bar" placeholder="Search fandoms...">
             </div>
             <div class="list-header">
+                <span class="delta-col"></span>
                 <span class="rank-col">Rank</span>
                 <span class="name-col">Fandom Name</span>
                 <span class="count-col">Creators</span>
@@ -49,7 +46,8 @@
         </section>
 
         <footer>
-            <p>Data sourced from Comifuro 21 Creator List</p>
+            <p id="footer-source">Data sourced from Comifuro 22 Creator List</p>
+            <p>Similar fandom names are <a href="https://github.com/mentegago/cf22-map-config-data/blob/master/data/fandom-groups.json" target="_blank">normalized and merged</a></p>
         </footer>
     </div>
     <script src="script.js"></script>

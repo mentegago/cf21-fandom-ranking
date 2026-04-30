@@ -38,7 +38,35 @@ body {
 
 header {
     text-align: center;
+    margin-bottom: 1rem;
+}
+
+.dataset-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
     margin-bottom: 2rem;
+}
+
+.toggle-btn {
+    padding: 0.4rem 1.2rem;
+    border-radius: 999px;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.toggle-btn.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+.toggle-btn:not(.active):hover {
+    background: rgba(108, 92, 231, 0.1);
 }
 
 header h1 {
@@ -92,28 +120,6 @@ header p {
     font-weight: 800;
     color: var(--primary);
     line-height: 1.2;
-}
-
-/* Chart Section */
-.chart-container {
-    background: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 2rem;
-}
-
-.chart-container h2 {
-    margin-bottom: 1rem;
-    color: var(--text);
-    font-size: 1.25rem;
-    font-weight: 700;
-}
-
-.canvas-container {
-    position: relative;
-    height: 300px;
-    width: 100%;
 }
 
 /* Rankings List */
@@ -214,6 +220,30 @@ header p {
 .rank-2 .rank-number { color: var(--rank-2); font-size: 1.3rem; }
 .rank-3 .rank-number { color: var(--rank-3); font-size: 1.2rem; }
 
+/* Delta column: hidden by default, shown only in CF22 mode */
+.list-header .delta-col { display: none; }
+.rank-delta { display: none; }
+#rankings.show-comparison .list-header { grid-template-columns: auto 60px 1fr auto; }
+#rankings.show-comparison .ranking-item { grid-template-columns: auto 60px 1fr auto; }
+#rankings.show-comparison .list-header .delta-col { display: block; }
+#rankings.show-comparison .rank-delta { display: inline-block; }
+
+/* Rank delta badge */
+.rank-delta {
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 0.25rem 0.55rem;
+    text-align: center;
+    white-space: nowrap;
+    min-width: 2.5rem;
+    margin-right: 12px;
+}
+.rank-up   { color: var(--accent); background: rgba(0, 184, 148, 0.12); }
+.rank-down { color: #d63031;       background: rgba(214, 48, 49, 0.12); }
+.rank-same { color: var(--text-light); background: rgba(99, 110, 114, 0.1); }
+.rank-new  { color: #5561e1;       background: rgba(85, 97, 225, 0.12); letter-spacing: 0.03em; }
+
 /* Loading State */
 .loading {
     text-align: center;
@@ -256,15 +286,6 @@ footer {
         font-size: 1.75rem;
     }
 
-    .chart-container {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .canvas-container {
-        height: 250px;
-    }
-
     .rankings-header {
         padding: 1rem;
     }
@@ -279,6 +300,10 @@ footer {
         padding: 0.875rem 1rem;
         grid-template-columns: 50px 1fr auto;
     }
+
+    #rankings.show-comparison .list-header { grid-template-columns: auto 50px 1fr auto; }
+    #rankings.show-comparison .ranking-item { grid-template-columns: auto 50px 1fr auto; }
+    .rank-delta { font-size: 0.7rem; padding: 0.2rem 0.4rem; min-width: 2rem; }
 
     .rank-number {
         font-size: 1rem;
