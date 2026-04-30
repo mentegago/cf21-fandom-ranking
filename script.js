@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             li.addEventListener('click', () => {
                 const listCode = intsToStringCode(fandom.creatorIds);
                 const baseUrl = currentDataset === 'cf22' ? 'https://cf22.nnt.gg' : 'https://cf21.nnt.gg';
-                window.open(`${baseUrl}/?list=${listCode}`, '_blank');
+                window.open(`${baseUrl}/?list=${listCode}&list_source=cf-fandom`, '_blank');
             });
 
             rankingList.appendChild(li);
