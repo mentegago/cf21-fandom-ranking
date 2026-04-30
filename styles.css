@@ -140,6 +140,39 @@ header p {
     margin-bottom: 1rem;
 }
 
+.filter-bar {
+    display: none;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+}
+
+#rankings.show-comparison .filter-bar {
+    display: flex;
+}
+
+.filter-btn {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    border: 1.5px solid #e2e8f0;
+    background: transparent;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.filter-btn:not(.active):hover {
+    border-color: #cbd5e0;
+    background: #f8fafc;
+}
+
+.filter-all.active  { border-color: var(--primary); color: var(--primary); background: rgba(108, 92, 231, 0.08); }
+.filter-new.active  { border-color: #5561e1;        color: #5561e1;        background: rgba(85, 97, 225, 0.10); }
+.filter-up.active   { border-color: var(--accent);  color: var(--accent);  background: rgba(0, 184, 148, 0.10); }
+.filter-down.active { border-color: #d63031;        color: #d63031;        background: rgba(214, 48, 49, 0.10); }
+
 #search-bar {
     width: 100%;
     padding: 0.875rem 1rem;

@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allFandoms = [];
     let currentDataset = 'cf22';
+    let currentFilter = 'all';
     let cf21RankMap = null;
 
     function loadData(dataset) {
@@ -106,7 +107,20 @@ document.addEventListener('DOMContentLoaded', () => {
         totalFandomsEl.textContent = allFandoms.length.toLocaleString();
         totalCreatorsEl.textContent = processedCreatorsCount.toLocaleString();
 
-        renderRankingList(allFandoms);
+        renderRankingList(applyFilters());
+    }
+
+    function applyFilters() {
+        const searchTerm = searchBar.value.toLowerCase();
+        return allFandoms.filter(f => {
+            if (searchTerm && !f.name.toLowerCase().includes(searchTerm)) return false;
+            if (currentDataset !== 'cf22' || cf21RankMap === null || currentFilter === 'all') return true;
+            const cf21Rank = cf21RankMap[f.name];
+            if (currentFilter === 'new')  return cf21Rank === undefined;
+            if (currentFilter === 'up')   return cf21Rank !== undefined && (cf21Rank - f.rank) > 0;
+            if (currentFilter === 'down') return cf21Rank !== undefined && (cf21Rank - f.rank) < 0;
+            return true;
+        });
     }
 
     function renderRankingList(fandoms) {
@@ -161,6 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('rankings').classList.toggle('show-comparison', dataset === 'cf22');
 
         searchBar.value = '';
+        currentFilter = 'all';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
         loadData(dataset);
     }
 
@@ -198,12 +214,14 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCf22.addEventListener('click', () => switchDataset('cf22'));
     btnCf21.addEventListener('click', () => switchDataset('cf21'));
 
-    searchBar.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        const filtered = allFandoms.filter(f =>
-            f.name.toLowerCase().includes(searchTerm)
-        );
-        renderRankingList(filtered);
+    searchBar.addEventListener('input', () => renderRankingList(applyFilters()));
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentFilter = btn.dataset.filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+            renderRankingList(applyFilters());
+        });
     });
 
     function escapeHtml(unsafe) {
