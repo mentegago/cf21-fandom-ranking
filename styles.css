@@ -253,13 +253,17 @@ header p {
 .rank-2 .rank-number { color: var(--rank-2); font-size: 1.3rem; }
 .rank-3 .rank-number { color: var(--rank-3); font-size: 1.2rem; }
 
-/* Delta column: hidden by default, shown only in CF22 mode */
+/* Delta + count-diff columns: hidden by default, shown only in CF22 mode */
 .list-header .delta-col { display: none; }
+.list-header .count-diff-col { display: none; }
 .rank-delta { display: none; }
-#rankings.show-comparison .list-header { grid-template-columns: auto 60px 1fr auto; }
-#rankings.show-comparison .ranking-item { grid-template-columns: auto 60px 1fr auto; }
+.count-delta { display: none; }
+#rankings.show-comparison .list-header { grid-template-columns: auto 60px 1fr auto auto; }
+#rankings.show-comparison .ranking-item { grid-template-columns: auto 60px 1fr auto auto; }
 #rankings.show-comparison .list-header .delta-col { display: block; }
+#rankings.show-comparison .list-header .count-diff-col { display: block; }
 #rankings.show-comparison .rank-delta { display: inline-block; }
+#rankings.show-comparison .count-delta { display: inline-block; }
 
 /* Rank delta badge */
 .rank-delta {
@@ -276,6 +280,22 @@ header p {
 .rank-down { color: #d63031;       background: rgba(214, 48, 49, 0.12); }
 .rank-same { color: var(--text-light); background: rgba(99, 110, 114, 0.1); }
 .rank-new  { color: #5561e1;       background: rgba(85, 97, 225, 0.12); letter-spacing: 0.03em; }
+
+/* Creator count diff badge */
+.count-delta {
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 0.25rem 0.55rem;
+    text-align: center;
+    white-space: nowrap;
+    min-width: 2.5rem;
+    margin-left: 0.75rem;
+}
+.count-up   { color: var(--accent); background: rgba(0, 184, 148, 0.12); }
+.count-down { color: #d63031;       background: rgba(214, 48, 49, 0.12); }
+.count-same { color: var(--text-light); background: rgba(99, 110, 114, 0.1); }
+.count-new  { color: #5561e1;       background: rgba(85, 97, 225, 0.12); }
 
 /* Loading State */
 .loading {
@@ -334,8 +354,8 @@ footer {
         grid-template-columns: 50px 1fr auto;
     }
 
-    #rankings.show-comparison .list-header { grid-template-columns: auto 50px 1fr auto; }
-    #rankings.show-comparison .ranking-item { grid-template-columns: auto 50px 1fr auto; }
+    #rankings.show-comparison .list-header { grid-template-columns: auto 50px 1fr auto auto; }
+    #rankings.show-comparison .ranking-item { grid-template-columns: auto 50px 1fr auto auto; }
     .rank-delta { font-size: 0.7rem; padding: 0.2rem 0.4rem; min-width: 2rem; }
 
     .rank-number {

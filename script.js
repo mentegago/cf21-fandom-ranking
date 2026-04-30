@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return allFandoms.filter(f => {
             if (searchTerm && !f.name.toLowerCase().includes(searchTerm)) return false;
             if (currentDataset !== 'cf22' || cf21RankMap === null || currentFilter === 'all') return true;
-            const cf21Rank = cf21RankMap[f.name];
+            const cf21Rank = cf21RankMap[f.name]?.rank;
             if (currentFilter === 'new')  return cf21Rank === undefined;
             if (currentFilter === 'up')   return cf21Rank !== undefined && (cf21Rank - f.rank) > 0;
             if (currentFilter === 'down') return cf21Rank !== undefined && (cf21Rank - f.rank) < 0;
@@ -137,15 +137,23 @@ document.addEventListener('DOMContentLoaded', () => {
             li.style.cursor = 'pointer';
 
             let deltaBadge = '<span class="rank-delta"></span>';
+            let countBadge = '<span class="count-delta"></span>';
             if (currentDataset === 'cf22' && cf21RankMap !== null) {
-                const cf21Rank = cf21RankMap[fandom.name];
+                const cf21 = cf21RankMap[fandom.name];
+                const cf21Rank = cf21?.rank;
                 if (cf21Rank === undefined) {
                     deltaBadge = `<span class="rank-delta rank-new">NEW</span>`;
+                    countBadge = `<span class="count-delta count-new">+${fandom.count}</span>`;
                 } else {
-                    const diff = cf21Rank - fandom.rank;
-                    if (diff > 0)      deltaBadge = `<span class="rank-delta rank-up">↑${diff}</span>`;
-                    else if (diff < 0) deltaBadge = `<span class="rank-delta rank-down">↓${Math.abs(diff)}</span>`;
-                    else               deltaBadge = `<span class="rank-delta rank-same">—</span>`;
+                    const rankDiff = cf21Rank - fandom.rank;
+                    if (rankDiff > 0)      deltaBadge = `<span class="rank-delta rank-up">↑${rankDiff}</span>`;
+                    else if (rankDiff < 0) deltaBadge = `<span class="rank-delta rank-down">↓${Math.abs(rankDiff)}</span>`;
+                    else                   deltaBadge = `<span class="rank-delta rank-same">—</span>`;
+
+                    const countDiff = fandom.count - cf21.count;
+                    if (countDiff > 0)      countBadge = `<span class="count-delta count-up">+${countDiff}</span>`;
+                    else if (countDiff < 0) countBadge = `<span class="count-delta count-down">${countDiff}</span>`;
+                    else                    countBadge = `<span class="count-delta count-same">—</span>`;
                 }
             }
 
@@ -154,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="rank-number">#${fandom.rank}</span>
                 <span class="fandom-name">${escapeHtml(fandom.name)}</span>
                 <span class="creator-count">${fandom.count}</span>
+                ${countBadge}
             `;
 
             li.addEventListener('click', () => {
@@ -199,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentRank = 1;
         for (let i = 0; i < sorted.length; i++) {
             if (i > 0 && counts[sorted[i]] < counts[sorted[i - 1]]) currentRank = i + 1;
-            map[sorted[i]] = currentRank;
+            map[sorted[i]] = { rank: currentRank, count: counts[sorted[i]] };
         }
         return map;
     }
