@@ -216,7 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadCf21RankMap() {
         fetch(DATA_SOURCES.cf21)
             .then(r => r.json())
-            .then(data => { cf21RankMap = buildRankMap(data); })
+            .then(data => {
+                cf21RankMap = buildRankMap(data);
+                if (allFandoms.length > 0 && currentDataset === 'cf22') {
+                    renderRankingList(applyFilters());
+                }
+            })
             .catch(err => console.warn('CF21 comparison data unavailable:', err));
     }
 

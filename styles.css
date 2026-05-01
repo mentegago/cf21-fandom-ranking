@@ -144,11 +144,21 @@ header p {
     display: none;
     gap: 0.4rem;
     margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
     flex-wrap: wrap;
+}
+
+.comparison-note {
+    display: none;
+    color: var(--text-light);
 }
 
 #rankings.show-comparison .filter-bar {
     display: flex;
+}
+
+#rankings.show-comparison .comparison-note {
+    display: block;
 }
 
 .filter-btn {
